@@ -20,7 +20,7 @@ class Armor:
         self.maxx_block = maxx_block
 
     def block(self):
-        block = random.randint(0, self.max_block)
+        block = random.randint(0, self.maxx_block)
         return block
 class Hero:
     def __init__(self, name, starting_health=100):
@@ -33,6 +33,6 @@ class Hero:
 
 
 if __name__ == "__main__":
-    ability = Ability("Debugging Ability", 20)
-    print(ability.name)
-    print(ability.attack())
+    my_hero = Hero("Black Panther", 200)
+    print(my_hero.name)
+    print(my_hero.current_health)
