@@ -54,17 +54,19 @@ class Hero:
         self.current_health -= damage
 
     def is_alive(self):
-        if self.current_health < self.starting_health:
-            return True
+        if self.current_health <=0:
+            return False
         else: 
-            return False 
+            return True 
 
     def fight(self, opponent):
-        while self.is_alive() and opponent.is_alive():
+        while self.is_alive() == True and opponent.is_alive() == True:
             opponent.take_damage(self.attack())
+            #print(opponent.take_damage(self.attack()))
             self.take_damage(opponent.attack())
+            #print(self.take_damage(opponent.attack()))
 
-            if self.abilities == None and opponent.abilities == None:
+            if self.is_alive() == True and opponent.is_alive() == True:
                 print("DRAW!!!")
 
             else:
