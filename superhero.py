@@ -36,27 +36,49 @@ class Hero:
         
 
     def attack(self):
+        attack_total = 0
         for ability in self.abilities:
-            return ability.attack()
+            attack_total =+ ability.attack()
+        return attack_total 
 
     def add_armor(self, armor):
         self.armors.append(armor)
 
-    def defend(self, damage_amt):
-        for block in self.armors
-        return block
+    def defend(self):
+        defend_total = 0 
+        for armor in self.armors: 
+             defend_total += armor.block() 
+        return defend_total
 
-    def 
+    def take_damage(self, damage): 
+        self.current_health -= damage
+
+    def is_alive(self):
+        if self.current_health < self.starting_health:
+            return True
+        else: 
+            return False 
+
+    def fight(self, opponent):
+        while self.is_alive() and opponent.is_alive():
+          
+
 
     
 
 
 
 if __name__ == "__main__":
-    ability = Ability("Punch", 90)
-    another_ability = Ability("Love", 100)
     hero = Hero("Black Panther", 200)
-    hero.add_ability(ability)
-    hero.add_ability(another_ability)
-    print(hero.attack())
+    hero.take_damage(150)
+    print (hero.is_alive())
+    hero.take_damage(15000)
+    print(hero.is_alive)
+    
+    # ability = Ability("Punch", 90)
+    # another_ability = Ability("Love", 100)
+    # hero = Hero("Black Panther", 200)
+    # hero.add_ability(ability)
+    # hero.add_ability(another_ability)
+    # print(hero.attack())
     
