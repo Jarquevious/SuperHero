@@ -61,7 +61,17 @@ class Hero:
 
     def fight(self, opponent):
         while self.is_alive() and opponent.is_alive():
-          
+            opponent.take_damage(self.attack())
+            self.take_damage(opponent.attack())
+
+            if self.abilities == None and opponent.abilities == None:
+                print("DRAW!!!")
+
+            else:
+                if self.is_alive() == True:
+                    print(f'WOOHOO! {self.name} is the WINNER!!!!')
+                elif opponent.is_alive() == True: 
+                    print(f'YEEEEEHAAAAA!! {opponent.name} is the WINNER!!!!')
 
 
     
@@ -69,11 +79,27 @@ class Hero:
 
 
 if __name__ == "__main__":
-    hero = Hero("Black Panther", 200)
-    hero.take_damage(150)
-    print (hero.is_alive())
-    hero.take_damage(15000)
-    print(hero.is_alive)
+    hero1 = Hero("Black Panther")
+    hero2 = Hero("Beast")
+    ability1 = Ability("Super Speed", 300)
+    ability2 = Ability("Super Eyes", 130)
+    ability3 = Ability("Wizard Wand", 80)
+    ability4 = Ability("Wizard Beard", 20)
+    hero1.add_ability(ability1)
+    hero1.add_ability(ability2)
+    hero2.add_ability(ability3)
+    hero2.add_ability(ability4)
+    hero1.fight(hero2)
+    
+    
+    
+    
+    
+    # hero = Hero("Black Panther", 200)
+    # hero.take_damage(150)
+    # print (hero.is_alive())
+    # hero.take_damage(15000)
+    # print(hero.is_alive)
     
     # ability = Ability("Punch", 90)
     # another_ability = Ability("Love", 100)
