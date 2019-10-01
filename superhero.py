@@ -22,6 +22,12 @@ class Armor:
     def block(self):
         block = random.randint(0, self.maxx_block)
         return block
+
+class Weapon(Ability):
+    def attack(self):
+        return random.randint(self.mxdmg // 2, self.mxdmg)
+
+
 class Hero:
     def __init__(self, name, starting_health=100):
         self.abilities = []
@@ -74,6 +80,16 @@ class Hero:
                     print(f'WOOHOO! {self.name} is the WINNER!!!!')
                 elif opponent.is_alive() == True: 
                     print(f'YEEEEEHAAAAA!! {opponent.name} is the WINNER!!!!')
+
+class Team:
+    def init(self, name):
+        self.heroes = []
+        self.name = name
+    pass
+
+        
+
+
 
 
     
