@@ -82,10 +82,28 @@ class Hero:
                     print(f'YEEEEEHAAAAA!! {opponent.name} is the WINNER!!!!')
 
 class Team:
-    def init(self, name):
+    def init(self, team_name):
+        self.name = team_name
         self.heroes = []
-        self.name = name
-    pass
+
+    def add_hero(self, hero):
+       self.heroes.append(hero)
+   
+    def remove_hero(self, name):
+       for hero in self.heroes:
+            if hero.name == name:
+                self.heroes.remove(hero)
+                return
+            return 0
+
+    def view_all_heroes(self):
+        for hero in self.heroes:
+            print(hero.name)
+
+    
+    
+    
+
 
         
 
