@@ -38,6 +38,7 @@ class Hero:
         self.current_health: starting_health 
         self.deaths = 0
         self.kills = 0
+        self.status = None 
    
     def add_ability(self, ability):
         self.abilities.append(ability)
@@ -137,8 +138,8 @@ class Team:
         alive_opponents = []
 
         for i in self.heroes:
-                if i.status == "alive":
-                    alive_heroes.append(self.heroes.index(i))
+            if i.status == "alive":
+                alive_heroes.append(self.heroes.index(i))
         
         for x in opponents.heroes:
                 if x.status == "alive":
@@ -245,30 +246,31 @@ class Arena:
                 print('Please select a value 1-4')
         return hero
 
-    '''Prompt the user to build team_one '''
     def build_team_one(self):
-        team_name = input('Name your Team?\n')
-        self.team_one = Team(team_name)
-        num_heroes = input(f'How many heroes do you want on team {self.team_one}?\n')
-        for i in range(int(num_heroes)):
+        self.team_amt = int(input("How many heroes for both teams?: "))
+        name = input("Team 1 Name: ")
+        self.team_one = Team(name)
+
+        for i in range(self.team_amt):
             hero = self.create_hero()
             self.team_one.add_hero(hero)
         
         self.team_one.view_all_heroes()
-    
-    '''Prompt the user to build team_two '''
+
     def build_team_two(self):
-        team_name = input('Name your team\n')
-        self.team_two = Team(team_name)
-        num_heroes = input(f'How many heroes do you want on team {self.team_two}?\n')
-        for i in range(int(num_heroes)):
+        name = input("Team 2 Name: ")
+        self.team_two = Team(name)
+
+        for i in range(self.team_amt):
             hero = self.create_hero()
             self.team_two.add_hero(hero)
-
+        
         self.team_two.view_all_heroes()
 
+        
+
     def team_battle(self):
-        self.team_one.attack(self.team_two)
+        self.winning_team = self.team_one.attack(self.team_two)
 
     def count_alive(self, team):
         ''' Count number of heroes alive on a team'''
@@ -302,28 +304,21 @@ class Arena:
             print (self.team_two.name + ' won!')
         else:
             print ('Draw!')
+    
     def show_stats(self):
-        ''' Prints team statistics to terminal'''
-        team1_kills = self.count_kills(self.team_one)
-        team1_deaths = self.count_deaths(self.team_one)
-        average1_kills = team1_kills // len(self.team_one.heroes)
-        average1_deaths = team1_deaths // len(self.team_one.heroes) 
-
-        team2_kills = self.count_kills(self.team_two)
-        team2_deaths = self.count_deaths(self.team_two)
-        average2_kills = team2_kills // len(self.team_two.heroes)
-        average2_deaths = team2_deaths // len(self.team_two.heroes)
-
-        self.who_won()
-        print(self.team_one.name + ' average kills: ' + str(average1_kills))
-        print(self.team_one.name + ' average deaths: ' + str(average1_deaths))
-        print(self.team_one.name + "'s surviving heroes: ")
-        self.team_one.show_surviving_heroes()
+        print("The winners are: " + self.winning_team)
         
-        print(self.team_two.name + ' average kills: ' + str(average2_kills))
-        print(self.team_two.name + ' average deaths: ' + str(average2_deaths))
-        print(self.team_two.name + "'s surviving heroes: ")
-        self.team_two.show_surviving_heroes()
+        self.team_one.stats()
+        self.team_two.stats()
+
+        if self.winning_team == self.team_one.name:
+            for hero in self.team_one.heroes:
+                if hero.status == "Alive":
+                    print("Surviving Heroes: " + hero.name)
+        elif self.winning_team == self.team_two.name:
+            for hero in self.team_two.heroes:
+                if hero.status == "Alive":
+                    print("Surviving Heroes: " + hero.name)
 
 if __name__ == "__main__":
     game_is_running = True
